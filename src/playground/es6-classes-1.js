@@ -1,95 +1,76 @@
 class Person{
-  constructor(name = 'Annonymous', age = 0){
-    this.name = name;
-    this.age = age;
+  constructor(name, age, gender = 'unknown'){
+    this.name = name
+    this.age = age
+    this.gender = gender
   }
-  getGreeting(){
-    return `Hi, I am ${this.name}`;
+
+  getDescription(){
+    return `${this.name} is ${this.age} year old ${this.gender}.`
+  }
+}
+
+class Student extends Person{
+  constructor(name, age, gender, major){
+    super(name, age, gender)
+    this.major = major
   }
   getDescription(){
-    return `${this.name} is ${this.age}`
+    return `${this.name} is majoring in ${this.major}`
   }
 }
 
 class Teacher extends Person{
-    constructor(name, age, department){
-    super(name, age)
+  constructor(name, age, gender, department){
+    super(name, age,gender )
     this.department = department
   }
   getDescription(){
     let description = super.getDescription()
     if (this.department){
-      description += `I am in the ${this.deparment}`
-    }
-      return description
-  }
-
-}
-
-
-class Student extends Person{
-  constructor(name, age, major){
-  super(name, age)
-  this.major = major
-  }
-  hasMajor(){
-    return !!this.major
-  }
-  getDescription(){
-    let description  = super.getDescription()
-    if(this.major)
-    description += ` My major is ${this.major}`
-    return description
-  }
-}
-
-class Traveler extends Person{
-  constructor(name, age, homeLocation){
-    super(name, age)
-    this.homeLocation = homeLocation
-  }
-  hasHomeLocation(){
-    return !!this.homeLocation
-  }
-  getDescription(){
-    let description = super.getDescription()
-      if(this.hasHomeLocation()){
-        description += ` I am from ${this.homeLocation}`
-      }
-      return description
-  }
-}
- class Employee extends Person{
-   constructor(name, age, department){
-     super(name, age)
-     this.department = department
-   }
-   hasDepartment(){
-     return !!this.department
-   }
-   getDescription(){
-    let description = super.getDescription()
-    if (this.hasDepartment){
-      description+= ` I am in the ${this.department} department`
+      description+= ` ${this.name} is a ${this.department} teacher`
     }
     return description
   }
- }
+}
 
-//const me = new Person('Dean Gray', 38);
-// const me = new Traveler('Dean Gray', 38, 'Florida');
-// console.log(me.getGreeting())
-// console.log(me.getDescription())
+class Employee extends Person{
+  constructor(name, age, gender, location){
+  super(name, age, gender)
+  this.location = location
+  }
+  getDescription(){
+    let description = super.getDescription()
+    if(this.description){
+      description += `${this.name} is working in the ${this.location} location}` 
+    }
+  }
+}
 
-// const me = new Employee('Dean Gray', 38, 'Math');
-const me = new Teacher('Dean', 38, 'Math')
-console.log(me.getGreeting())
-console.log(me.getDescription())
+class Patient extends Person{
+  constructor(name, age, gender, illness){
+    super(name, age, gender)
+    this.illness = illness
+  }
+  getDescription(){
+    let description = super.getDescription()
+    if (this.illness){
+      description +=`${this.name} illness is: ${this.illness}`
+    }
+    return description
+  }
+}
 
+const p = new Person("dean", 38)
+console.log(p.getDescription())
 
-const other = new Traveler();
-console.log(other.getGreeting());
-console.log(other.getDescription())
+const s = new Student("Juan", 18, "IT")
+console.log(s.getDescription())
 
+const t = new Teacher("Mr. Gray", 38, "male", "math")
+console.log(t.getDescription())
+
+const patient = new Patient('Mary', 40, "female", "back pain" )
+console.log(patient.getDescription())
 
 //babel src/playground/es6-classes-1.js --out-file=public/scripts/app.js --presets=env,react --watch
